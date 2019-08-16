@@ -1,4 +1,10 @@
 
+environment {
+    registry = "idonoga/flask"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+}
+
 pipeline {
     agent any
     
@@ -17,12 +23,12 @@ pipeline {
         stage('flask-container-build') {
             steps{
                 echo "Building flask container"
-                sh """
-                docker build -t flask:latest ./mydockerflask/
-                IMAGE_ID=%24(docker images | grep latest | awk '{print %243}')
-                docker tag %24IMAGE_ID idonoga/flask:firsttry
-                docker push idonoga/flask
-                """
+                
+                script {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                 }
+                
+               
                 
             }
         }
