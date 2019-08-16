@@ -46,9 +46,15 @@ pipeline {
         }
         stage('run-containers') {
             steps{
+                echo "Running the two containers"
             sh """
-                
+                docker run -v /var/run/docker.sock:/var/run/docker.sock flask:latest
                 """
+                def response = sh(script: 'curl -s --head  --request GET http://localhost | grep '200 OK'', returnStdout: true)
+                if(response != 'HTTP/1.1 200 ok')
+                {
+                    exit 1
+                }
                 
             }
         }
