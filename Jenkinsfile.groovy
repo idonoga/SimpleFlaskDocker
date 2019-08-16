@@ -11,8 +11,8 @@ pipeline {
                 
                 yum install -y docker git
                 service docker start
-                docker stop $(docker ps -q)
-                docker rm $(docker ps -q -a)
+                docker stop \$(docker ps -q)
+                docker rm \$(docker ps -q -a)
                 git clone -b master https://idonoga:${GIT_PASSWORD}@github.com/idonoga/simpleflask-docker-v1.git .
                 """
                 
