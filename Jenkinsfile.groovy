@@ -48,7 +48,9 @@ pipeline {
             steps{
                 echo "Running the two containers"
             sh """
-                docker run -v /var/run/docker.sock:/var/run/docker.sock flask:latest
+                docker run -d --name flaskcontainer -v /var/run/docker.sock:/var/run/docker.sock idonoga/flask:firsttry
+                docker run -d --name ngnixproxy -p 80:80 --link=flaskcontainer idonoga/flask:ngnixserver
+                
                 """
                 script{
                 def RESPONSE = sh(script: "curl -s --head  --request GET http://localhost | grep '200 OK'", returnStdout: true)
