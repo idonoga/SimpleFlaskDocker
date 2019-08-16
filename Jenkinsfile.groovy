@@ -25,8 +25,8 @@ pipeline {
                echo "Building flask container"
                sh """
                 docker build -t flask:latest ./mydockerflask/
-                IMAGE_ID=$$(docker images --filter=reference="flask" --format "{{.ID}}")
-                docker tag $$IMAGE_ID idonoga/flask:firsttry
+                IMAGE_ID=\$(docker images --filter=reference="flask" --format "{{.ID}}")
+                docker tag \$IMAGE_ID idonoga/flask:firsttry
                 docker push idonoga/flask
                 """
 
