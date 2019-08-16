@@ -34,8 +34,12 @@ pipeline {
         }
         stage('ngnix-container-build') {
             steps{
+                echo "Building ngnix container"
             sh """
-                
+                docker build -t flask:latest ./ngnixdocker/
+                IMAGE_ID=\$(docker images --filter=reference="flask" --format "{{.ID}}")
+                docker tag \$IMAGE_ID idonoga/flask:ngnixserver
+                docker push idonoga/flask
                 """
                 
             }
