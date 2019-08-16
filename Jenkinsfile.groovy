@@ -8,6 +8,7 @@ pipeline {
             steps{
                 cleanWs()
                 echo "Building flask container"
+                echo "${BRANCH_NAME}"
                 sh """
                 
                 """
