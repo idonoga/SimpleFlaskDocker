@@ -18,7 +18,7 @@ pipeline {
             steps{
                 echo "Building flask container"
                 sh """
-                docker build -t flask:latest ./mydockerflask/Dockerfile
+                docker build -t flask:latest ./mydockerflask/
                 """
                 
             }
