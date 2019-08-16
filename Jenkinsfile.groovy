@@ -19,7 +19,7 @@ pipeline {
                 echo "Building flask container"
                 sh """
                 docker build -t flask:latest ./mydockerflask/
-                IMAGE_ID=$(docker images | grep latest | awk '{print $3}')
+                IMAGE_ID=%24(docker images | grep latest | awk '{print %243}')
                 docker tag %24IMAGE_ID idonoga/flask:firsttry
                 docker push idonoga/flask
                 """
