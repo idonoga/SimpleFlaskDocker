@@ -1,9 +1,9 @@
 
 pipeline {
     agent any
-    
+    cleanWs()
     stages {
-        cleanWs()
+        
         stage('flask-container-build') {
             steps{
                 
