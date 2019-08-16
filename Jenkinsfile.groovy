@@ -50,8 +50,10 @@ pipeline {
             sh """
                 docker run -v /var/run/docker.sock:/var/run/docker.sock flask:latest
                 """
+                script{
                 def RESPONSE = sh(script: "curl -s --head  --request GET http://localhost | grep '200 OK'", returnStdout: true)
                 echo "${RESPONSE}"
+                }
                 
                 
             }
