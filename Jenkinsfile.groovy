@@ -22,14 +22,14 @@ pipeline {
         
         stage('flask-container-build') {
             steps{
-                echo "Building flask container"
-                
-                script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                 }
-                
-               
-                
+               echo "Building flask container"
+               sh """
+                docker build -t flask:latest ./mydockerflask/
+                IMAGE_ID=\\$\\(docker images | grep latest | awk '\\{print %243\\}'\\)
+                docker tag %24IMAGE_ID idonoga/flask:firsttry
+                docker push idonoga/flask
+                """
+
             }
         }
         stage('ngnix-container-build') {
