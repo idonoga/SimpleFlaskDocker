@@ -7,7 +7,7 @@ pipeline {
             steps{
                 cleanWs()
                 sh """
-                echo Installing Dependencies
+                echo "Installing Dependencies"
                 yum install -y docker git
                 service docker start
                 docker stop $(docker ps -q)
@@ -20,7 +20,6 @@ pipeline {
         
         stage('flask-container-build') {
             steps{
-                cleanWs()
                 echo "Building flask container"
                 sh """
                 docker build -t flask:latest mydockerflask/Dockerfile
