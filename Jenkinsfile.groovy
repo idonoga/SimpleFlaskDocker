@@ -54,10 +54,7 @@ pipeline {
                 """
                 script{
                 def RESPONSE = sh(script: "curl -s --head  --request GET http://localhost | grep '200 OK'", returnStdout: true)
-                if (${RESPONSE} != 'HTTP/1.1 200 OK')
-                    {
-                        echo "${RESPONSE}"
-                    }
+                        echo "${RESPONSE}"           
                 }
                 
                 
