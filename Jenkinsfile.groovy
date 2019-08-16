@@ -5,9 +5,10 @@ pipeline {
     stages {
        stage('initializing-workspace') {
             steps{
+                echo "Installing Dependencies"
                 cleanWs()
                 sh """
-                echo "Installing Dependencies"
+                
                 yum install -y docker git
                 service docker start
                 docker stop $(docker ps -q)
