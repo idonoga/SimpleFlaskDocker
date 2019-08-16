@@ -9,7 +9,7 @@ pipeline {
                 cleanWs()
                 sh """
                 
-                yum install -y docker git
+                #yum install -y docker git
                 service docker start
                 docker stop \$(docker ps -q)
                 docker rm \$(docker ps -q -a)
