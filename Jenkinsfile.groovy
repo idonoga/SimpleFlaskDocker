@@ -7,38 +7,25 @@ pipeline {
                 echo "Installing Dependencies"
                 cleanWs()
                 sh """
+                yum install -y docker git
                 git clone -b master https://idonoga:${GIT_PASSWORD}@github.com/idonoga/simpleflask-docker-v1.git .
-                
-                
                 """
-                script
+                script 
                 {
-                    def RUN_STATUS_NGNIX=sh(script: "docker ps -f name=ngnixproxy --format {{.Names}}", returnStdout: true)
-                    def RUN_STATUS_FLASK=sh(script: "docker ps -f name=flaskcontainer --format {{.Names}}", returnStdout: true)
-                    if (RUN_STATUS_NGNIX=~'ngnixproxy')
+                    try
                     {
                         sh """
                         docker stop ngnixproxy
+                        
                         docker rm ngnixproxy
                         """
                     }
-                    else
+                    catch(Exception ex)
                     {
-                        echo "ngnix not running"
-                    }
-                    
-                    if (RUN_STATUS_FLASK=~'flaskcontainer')
-                    {
-                        sh """
-                        docker stop flaskcontainer
-                        docker rm flaskcontainer
-                        """
-                    }
-                    else
-                    {
-                        echo "flask not running"
+                        echo "not running"
                     }
                 }
+               
                 
             }
         }
