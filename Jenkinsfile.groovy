@@ -8,7 +8,7 @@ pipeline {
                 cleanWs()
                 sh """
                 yum install -y docker git
-                git clone -b master https://idonoga:${GIT_PASSWORD}@github.com/idonoga/simpleflask-docker-v1.git .
+                git clone -b ${BRANCH_NAME} https://${GIT_USER}:${GIT_PASSWORD}@${GIT_REPO} .
                 """
                 //Checking if the containers already running
                 script 
