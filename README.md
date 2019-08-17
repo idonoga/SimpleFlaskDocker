@@ -1,7 +1,8 @@
 # simpleflask-docker-v1
-Simple Flask Docker 
+Simple flask docker and ngnix reverse proxy
 <BR>
-The jenkins job is pulling the repository ,building and running 2 containers.
+<BR>
+The jenkins job is pulling the repository, building and running 2 containers.
 <BR>
 The first one is a simple flask container that returns the active containers list
 <BR>
