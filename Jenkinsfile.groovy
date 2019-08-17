@@ -11,6 +11,17 @@ pipeline {
                 
                 
                 """
+                script
+                {
+                    if(sh(docker inspect -f '{{.State.Running}}' flaskcontainer))
+                    {
+                        echo "running"
+                    }
+                    else
+                    {
+                        echo "not running"
+                    }
+                }
                 
             }
         }
