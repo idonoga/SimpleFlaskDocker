@@ -60,7 +60,7 @@ pipeline {
                     }
                     else
                     {
-                        sh(exit 1)
+                        exit 1
                     }
                   
                 }
