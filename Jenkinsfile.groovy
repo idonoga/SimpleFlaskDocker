@@ -1,10 +1,3 @@
-
-environment {
-    registry = "idonoga/flask"
-    registryCredential = 'dockerhub'
-    dockerImage = ''
-}
-
 pipeline {
     agent any
     
@@ -67,7 +60,7 @@ pipeline {
                     }
                     else
                     {
-                        echo "not working"
+                        sh(exit 1)
                     }
                   
                 }
