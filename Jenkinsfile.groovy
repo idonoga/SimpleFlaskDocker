@@ -49,26 +49,21 @@ pipeline {
                 docker run -d --name ngnixproxy -p 80:80 --link=flaskcontainer idonoga/flask:ngnixserver
                 
                 """
-                script{
-                def RESPONSE = sh(script: "curl -s --head  --request GET http://localhost | grep '200 OK'", returnStdout: true)
-                        echo "${RESPONSE} - RESPONSE"
+                script
+                {
+                    def RESPONSE = sh(script: "curl -s --head  --request GET http://localhost | grep '200 OK'", returnStdout: true)      
                     def OK_STATUS = 'HTTP/1.1 200 OK'
-                    echo "${OK_STATUS} - OK STATUS"
                     if(RESPONSE =~ OK_STATUS)
                     {
-                        echo "WEBSITE IS RUNNING"
-                        exit 1
+                        echo "WEBSITE IS RUNNING"    
                     }
                     else
                     {
-                        exit 1
+                        echo "WEBSITE IS DOWN!!!"
                     }
-                  
+
                 }
-                  
-                
-                
-            }
+             }
         }
     }
 }
