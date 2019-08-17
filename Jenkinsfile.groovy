@@ -17,13 +17,24 @@ pipeline {
                         sh """
                         docker stop ngnixproxy
                         docker rm ngnixproxy
+                        """
+                    }
+                    catch(Exception ex)
+                    {
+                        echo ex
+                    }
+                    
+                    
+                    try
+                    {
+                        sh """
                         docker stop flaskcontainer
                         docker rm flaskcontainer
                         """
                     }
                     catch(Exception ex)
                     {
-                        echo "not running"
+                        echo ex
                     }
                 }
                
