@@ -13,7 +13,7 @@ pipeline {
                 """
                 script
                 {
-                    def RUN_STATUS=sh(script: "docker ps -f "name=ngnixproxy" --format {{.Names}}", returnStdout: true)
+                    def RUN_STATUS=sh(script: "docker ps -f name=ngnixproxy --format {{.Names}}", returnStdout: true)
                     if (RUN_STATUS=~'ngnixproxy')
                     {
                         echo "running"
