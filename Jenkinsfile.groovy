@@ -27,7 +27,7 @@ pipeline {
                         echo "ngnix not running"
                     }
                     
-                    if (RUN_STATUS_FLASK=~'ngnixproxy')
+                    if (RUN_STATUS_FLASK=~'flaskcontainer')
                     {
                         sh """
                         docker stop flaskcontainer
