@@ -13,8 +13,9 @@ pipeline {
                 """
                 script
                 {
-                    def RUN_STATUS=sh(script: "docker ps -f name=ngnixproxy --format {{.Names}}", returnStdout: true)
-                    if (RUN_STATUS=~'ngnixproxy')
+                    def RUN_STATUS_NGNIX=sh(script: "docker ps -f name=ngnixproxy --format {{.Names}}", returnStdout: true)
+                    def RUN_STATUS_FLASK=sh(script: "docker ps -f name=flaskcontainer --format {{.Names}}", returnStdout: true)
+                    if (RUN_STATUS_NGNIX=~'ngnixproxy')
                     {
                         sh """
                         docker stop ngnixproxy
@@ -23,7 +24,19 @@ pipeline {
                     }
                     else
                     {
-                        echo "not running"
+                        echo "ngnix not running"
+                    }
+                    
+                    if (RUN_STATUS_FLASK=~'ngnixproxy')
+                    {
+                        sh """
+                        docker stop flaskcontainer
+                        docker rm flaskcontainer
+                        """
+                    }
+                    else
+                    {
+                        echo "flask not running"
                     }
                 }
                 
