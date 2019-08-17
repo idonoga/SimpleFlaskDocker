@@ -13,8 +13,8 @@ pipeline {
                 """
                 script
                 {
-                    def RUN_STATUS=sh(script: "docker inspect -f '{{.State.Running}}' flaskcontainerg", returnStdout: true)
-                    if (RUN_STATUS=~'true')
+                    def RUN_STATUS=sh(script: "docker ps -f "name=ngnixproxy" --format {{.Names}}", returnStdout: true)
+                    if (RUN_STATUS=~'ngnixproxy')
                     {
                         echo "running"
                     }
