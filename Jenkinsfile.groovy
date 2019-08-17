@@ -21,7 +21,7 @@ pipeline {
                     }
                     catch(Exception ex)
                     {
-                        echo ex
+                        echo "ngnix is not running"
                     }
                     
                     
@@ -34,7 +34,7 @@ pipeline {
                     }
                     catch(Exception ex)
                     {
-                        echo ex
+                        echo "flask is not running"
                     }
                 }
                
