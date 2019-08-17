@@ -57,6 +57,7 @@ pipeline {
                     if(RESPONSE =~ OK_STATUS)
                     {
                         echo "WEBSITE IS RUNNING"
+                        exit 1
                     }
                     else
                     {
