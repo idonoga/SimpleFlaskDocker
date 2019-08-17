@@ -10,6 +10,7 @@ pipeline {
                 yum install -y docker git
                 git clone -b master https://idonoga:${GIT_PASSWORD}@github.com/idonoga/simpleflask-docker-v1.git .
                 """
+                //Checking if the containers already running
                 script 
                 {
                     try
@@ -37,8 +38,6 @@ pipeline {
                         echo "flask is not running"
                     }
                 }
-               
-                
             }
         }
         
@@ -74,7 +73,7 @@ pipeline {
                 docker run -d --name ngnixproxy -p 80:80 --link=flaskcontainer idonoga/flask:ngnixserver
                 
                 """
-                script
+                script //Checking if the website is up on port 80 (ngnix proxy)
                 {
                     def RESPONSE = sh(script: "curl -s --head  --request GET http://localhost | grep '200 OK'", returnStdout: true)      
                     def OK_STATUS = 'HTTP/1.1 200 OK'
