@@ -47,8 +47,8 @@ pipeline {
                sh """
                 docker build -t flask:latest ./mydockerflask/
                 IMAGE_ID=\$(docker images --filter=reference="flask" --format "{{.ID}}")
-                docker tag \$IMAGE_ID idonoga/flask:flaskcontainer
-                docker push idonoga/flask
+                docker tag \$IMAGE_ID ${DOCKER_USER}/flask:flaskcontainer
+                docker push ${DOCKER_USER}/flask
                 """
 
             }
@@ -59,8 +59,8 @@ pipeline {
             sh """
                 docker build -t flask:latest ./ngnixdocker/
                 IMAGE_ID=\$(docker images --filter=reference="flask" --format "{{.ID}}")
-                docker tag \$IMAGE_ID idonoga/flask:ngnixserver
-                docker push idonoga/flask
+                docker tag \$IMAGE_ID ${DOCKER_USER}/flask:ngnixserver
+                docker push ${DOCKER_USER}/flask
                 """
                 
             }
@@ -69,8 +69,8 @@ pipeline {
             steps{
                 echo "Running the two containers"
             sh """
-                docker run -d --name flaskcontainer -v /var/run/docker.sock:/var/run/docker.sock idonoga/flask:flaskcontainer
-                docker run -d --name ngnixproxy -p 80:80 --link=flaskcontainer idonoga/flask:ngnixserver
+                docker run -d --name flaskcontainer -v /var/run/docker.sock:/var/run/docker.sock ${DOCKER_USER}/flask:flaskcontainer
+                docker run -d --name ngnixproxy -p 80:80 --link=flaskcontainer ${DOCKER_USER}/flask:ngnixserver
                 
                 """
                 script //Checking if the website is up on port 80 (ngnix proxy)
