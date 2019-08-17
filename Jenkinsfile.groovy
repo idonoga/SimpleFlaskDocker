@@ -61,7 +61,7 @@ pipeline {
                         echo "${RESPONSE} - RESPONSE"
                     def OK_STATUS = 'HTTP/1.1 200 OK'
                     echo "${OK_STATUS} - OK STATUS"
-                    if(RESPONSE == OK_STATUS)
+                    if(RESPONSE =~ OK_STATUS)
                     {
                         echo "WEBSITE IS RUNNING"
                     }
