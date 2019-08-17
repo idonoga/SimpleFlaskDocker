@@ -16,7 +16,10 @@ pipeline {
                     def RUN_STATUS=sh(script: "docker ps -f name=ngnixproxy --format {{.Names}}", returnStdout: true)
                     if (RUN_STATUS=~'ngnixproxy')
                     {
-                        echo "running"
+                        sh """
+                        docker stop ngnixproxy
+                        docker rm ngnixproxy
+                        """
                     }
                     else
                     {
