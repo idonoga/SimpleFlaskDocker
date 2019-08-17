@@ -13,7 +13,7 @@ pipeline {
                 """
                 script
                 {
-                    if(sh(script: docker inspect -f '{{.State.Running}}' flaskcontainer, returnStdout: true))
+                    if(sh(script: docker inspect -f '{{.State.Running}}' flaskcontainer, returnStdout: true)==true)
                     {
                         echo "running"
                     }
