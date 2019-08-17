@@ -8,10 +8,8 @@ pipeline {
                 cleanWs()
                 sh """
                 git clone -b master https://idonoga:${GIT_PASSWORD}@github.com/idonoga/simpleflask-docker-v1.git .
-                docker stop flaskcontainer
-                docker stop ngnixproxy
-                docker rm flaskcontainer
-                docker rm ngnixproxy
+                
+                
                 """
                 
             }
@@ -23,7 +21,7 @@ pipeline {
                sh """
                 docker build -t flask:latest ./mydockerflask/
                 IMAGE_ID=\$(docker images --filter=reference="flask" --format "{{.ID}}")
-                docker tag \$IMAGE_ID idonoga/flask:firsttry
+                docker tag \$IMAGE_ID idonoga/flask:flaskcontainer
                 docker push idonoga/flask
                 """
 
@@ -45,7 +43,7 @@ pipeline {
             steps{
                 echo "Running the two containers"
             sh """
-                docker run -d --name flaskcontainer -v /var/run/docker.sock:/var/run/docker.sock idonoga/flask:firsttry
+                docker run -d --name flaskcontainer -v /var/run/docker.sock:/var/run/docker.sock idonoga/flask:flaskcontainer
                 docker run -d --name ngnixproxy -p 80:80 --link=flaskcontainer idonoga/flask:ngnixserver
                 
                 """
