@@ -55,7 +55,8 @@ pipeline {
                 script{
                 def RESPONSE = sh(script: "curl -s --head  --request GET http://localhost | grep '200 OK'", returnStdout: true)
                         echo "${RESPONSE}"
-                    if(${RESPONSE} == 'HTTP/1.1 200 OK')
+                    def OK_STATUS = 'HTTP/1.1 200 OK'
+                    if(RESPONSE == OK_STATUS)
                     {
                         echo "WEBSITE IS RUNNING"
                     }
